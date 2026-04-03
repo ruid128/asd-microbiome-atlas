@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASD Microbiome Atlas — datasets.csv row",
+  "description": "Schema for a single row in datasets.csv",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "comparison",
+    "sequencing_type",
+    "body_site",
+    "source_db"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^DS\\d{4}$",
+      "description": "Unique dataset identifier, e.g. DS0001"
+    },
+    "bioproject_accession": {
+      "type": "string",
+      "pattern": "^(PRJNA\\d+|PRJEB\\d+|PRJDB\\d+)?$",
+      "description": "NCBI BioProject accession"
+    },
+    "study_accession": {
+      "type": "string",
+      "description": "SRA/ENA study accession (SRP/ERP/DRP)"
+    },
+    "geo_accession": {
+      "type": "string",
+      "pattern": "^(GSE\\d+)?$",
+      "description": "GEO Series accession"
+    },
+    "mgnify_accession": {
+      "type": "string",
+      "pattern": "^(MGYS\\d+)?$",
+      "description": "MGnify study accession"
+    },
+    "qiita_study_id": {
+      "type": "string",
+      "description": "Qiita study ID"
+    },
+    "pubmed_id": {
+      "type": "string",
+      "description": "PubMed ID of associated publication"
+    },
+    "doi": {
+      "type": "string",
+      "description": "DOI of associated publication"
+    },
+    "first_author": {
+      "type": "string",
+      "description": "Last name of the first author"
+    },
+    "year": {
+      "type": ["integer", "string"],
+      "description": "Publication or data release year"
+    },
+    "title": {
+      "type": "string",
+      "description": "Study or publication title"
+    },
+    "comparison": {
+      "type": "string",
+      "enum": ["ASD_vs_control"],
+      "description": "Comparison type (v1.0: ASD_vs_control only)"
+    },
+    "sequencing_type": {
+      "type": "string",
+      "enum": ["16S", "shotgun", "metagenome", "metatranscriptome"],
+      "description": "Sequencing technology / data type"
+    },
+    "body_site": {
+      "type": "string",
+      "enum": [
+        "stool", "gut", "oral", "oral_saliva", "oral_plaque",
+        "rectal_swab", "nasal", "skin", "other"
+      ],
+      "description": "Sampling body site, normalized"
+    },
+    "n_asd": {
+      "type": ["integer", "string"],
+      "description": "Number of ASD subjects"
+    },
+    "n_control": {
+      "type": ["integer", "string"],
+      "description": "Number of control subjects"
+    },
+    "n_total": {
+      "type": ["integer", "string"],
+      "description": "Total number of subjects"
+    },
+    "age_group": {
+      "type": "string",
+      "enum": ["child", "adult", "mixed", "unknown"],
+      "description": "Age group of study participants"
+    },
+    "gi_symptoms": {
+      "type": "string",
+      "enum": ["yes", "no", "partial", "unknown"],
+      "description": "Whether GI symptoms are reported"
+    },
+    "antibiotics_reported": {
+      "type": "string",
+      "enum": ["yes", "no", "unknown"],
+      "description": "Whether antibiotic usage is documented"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country where samples were collected"
+    },
+    "source_db": {
+      "type": "string",
+      "enum": ["bioproject", "ena", "geo", "mgnify", "qiita"],
+      "description": "Primary source database"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text notes"
+    }
+  }
+}

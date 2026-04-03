@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASD Microbiome Atlas — screening_log.csv row",
+  "description": "Schema for a single row in screening_log.csv",
+  "type": "object",
+  "required": [
+    "screening_id",
+    "source_db",
+    "accession",
+    "decision"
+  ],
+  "properties": {
+    "screening_id": {
+      "type": "string",
+      "pattern": "^SCR\\d{5}$",
+      "description": "Unique screening identifier, e.g. SCR00001"
+    },
+    "source_db": {
+      "type": "string",
+      "enum": ["bioproject", "ena", "geo", "mgnify", "qiita"],
+      "description": "Database where this record was found"
+    },
+    "query_id": {
+      "type": "string",
+      "description": "ID of the search query that found this record (from search_config.yaml)"
+    },
+    "accession": {
+      "type": "string",
+      "description": "Primary accession number in the source database"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the project or study"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the landing page of the record"
+    },
+    "search_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the search (YYYY-MM-DD)"
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["include", "exclude", "maybe"],
+      "description": "Screening decision"
+    },
+    "exclusion_reason": {
+      "type": "string",
+      "enum": [
+        "non_human",
+        "not_asd",
+        "not_microbiome_sequencing",
+        "no_public_data_link",
+        "duplicate_dataset",
+        "no_control_group",
+        "insufficient_metadata",
+        "other",
+        ""
+      ],
+      "description": "Standardized exclusion reason (only if decision=exclude)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text notes, mandatory for E8/other exclusions"
+    },
+    "screened_by": {
+      "type": "string",
+      "description": "Who performed the screening (agent name or human)"
+    },
+    "screening_round": {
+      "type": ["integer", "string"],
+      "description": "Screening round number (1 = initial, 2 = maybe resolution, etc.)"
+    }
+  }
+}

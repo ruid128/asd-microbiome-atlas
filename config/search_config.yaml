@@ -1,0 +1,103 @@
+# Search Configuration for ASD Microbiome Atlas v1.0
+# Defines standardized queries for each target database.
+
+version: "1.0"
+
+databases:
+
+  bioproject:
+    name: "NCBI BioProject / SRA"
+    base_url: "https://www.ncbi.nlm.nih.gov/bioproject/"
+    api: "NCBI E-utilities"
+    queries:
+      - id: "BP_Q1"
+        query: '(autism OR "autism spectrum disorder" OR ASD) AND (microbiome OR metagenome OR "16S" OR "gut microbiota")'
+        database: "bioproject"
+        note: "Primary broad search"
+      - id: "BP_Q2"
+        query: '(autistic) AND (microbiome OR metagenome OR metatranscriptome OR "16S rRNA")'
+        database: "bioproject"
+        note: "Alternate terminology"
+      - id: "BP_Q3"
+        query: '(autism OR ASD) AND (stool OR fecal OR gut OR oral) AND (sequencing OR amplicon)'
+        database: "bioproject"
+        note: "Body-site-specific search"
+    filters:
+      organism: "Homo sapiens"
+    search_fields:
+      - "title"
+      - "description"
+
+  ena:
+    name: "European Nucleotide Archive"
+    base_url: "https://www.ebi.ac.uk/ena/browser/"
+    api: "ENA Portal API"
+    queries:
+      - id: "ENA_Q1"
+        query: '(autism OR "autism spectrum disorder" OR ASD) AND (microbiome OR metagenome OR 16S OR "gut microbiota")'
+        result_type: "study"
+        note: "Primary broad search"
+      - id: "ENA_Q2"
+        query: 'tax_tree(9606) AND (autism OR ASD) AND (metagenome OR amplicon)'
+        result_type: "study"
+        note: "Human-filtered search"
+    filters:
+      tax_tree: 9606  # Homo sapiens
+
+  geo:
+    name: "Gene Expression Omnibus"
+    base_url: "https://www.ncbi.nlm.nih.gov/geo/"
+    api: "NCBI E-utilities (GDS database)"
+    queries:
+      - id: "GEO_Q1"
+        query: '(autism OR "autism spectrum disorder" OR ASD) AND (microbiome OR metagenome OR "16S")'
+        database: "gds"
+        note: "Primary search in GEO DataSets"
+      - id: "GEO_Q2"
+        query: '(autism OR ASD) AND (gut microbiota OR fecal microbiome)'
+        database: "gds"
+        note: "Gut-focused search"
+    filters:
+      organism: "Homo sapiens"
+      entry_type: ["GSE"]
+
+  mgnify:
+    name: "MGnify"
+    base_url: "https://www.ebi.ac.uk/metagenomics/"
+    api: "MGnify API v1"
+    queries:
+      - id: "MG_Q1"
+        query: "autism"
+        endpoint: "/studies"
+        note: "Simple keyword search"
+      - id: "MG_Q2"
+        query: "ASD microbiome"
+        endpoint: "/studies"
+        note: "Combined keyword search"
+    filters:
+      biome: "root:Host-associated:Human"
+      experiment_type: ["amplicon", "metagenomic", "metatranscriptomic"]
+
+  qiita:
+    name: "Qiita"
+    base_url: "https://qiita.ucsd.edu/"
+    api: "Qiita REST API"
+    queries:
+      - id: "QI_Q1"
+        query: "autism"
+        endpoint: "/study"
+        note: "Simple keyword search"
+      - id: "QI_Q2"
+        query: "ASD"
+        endpoint: "/study"
+        note: "Abbreviation search"
+    filters: {}
+
+# PRISMA logging: for each query execution, record:
+search_log_fields:
+  - "query_id"
+  - "database"
+  - "query_string"
+  - "execution_date"
+  - "results_count"
+  - "notes"

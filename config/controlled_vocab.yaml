@@ -1,0 +1,99 @@
+# Controlled Vocabularies for ASD Microbiome Atlas v1.0
+# All metadata values MUST be normalized to these terms.
+
+version: "1.0"
+
+body_site:
+  accepted_values:
+    - "stool"
+    - "gut"
+    - "oral"
+    - "oral_saliva"
+    - "oral_plaque"
+    - "rectal_swab"
+    - "nasal"
+    - "skin"
+    - "other"
+  normalization_rules:
+    "feces": "stool"
+    "fecal": "stool"
+    "faecal": "stool"
+    "faeces": "stool"
+    "intestinal": "gut"
+    "gastrointestinal": "gut"
+    "GI": "gut"
+    "saliva": "oral_saliva"
+    "dental plaque": "oral_plaque"
+    "subgingival": "oral_plaque"
+    "supragingival": "oral_plaque"
+    "buccal": "oral"
+    "mouth": "oral"
+    "rectal": "rectal_swab"
+    "nose": "nasal"
+    "nasopharyngeal": "nasal"
+
+sequencing_type:
+  accepted_values:
+    - "16S"
+    - "shotgun"
+    - "metagenome"
+    - "metatranscriptome"
+  normalization_rules:
+    "16S rRNA": "16S"
+    "16S rRNA gene": "16S"
+    "16S amplicon": "16S"
+    "amplicon": "16S"
+    "WGS": "shotgun"
+    "whole genome shotgun": "shotgun"
+    "whole metagenome": "metagenome"
+    "metagenomic": "metagenome"
+    "metatranscriptomic": "metatranscriptome"
+    "RNA-seq metatranscriptome": "metatranscriptome"
+
+comparison:
+  accepted_values:
+    - "ASD_vs_control"
+  note: "v1.0 supports only ASD vs control comparison"
+
+age_group:
+  accepted_values:
+    - "child"
+    - "adult"
+    - "mixed"
+    - "unknown"
+  normalization_rules:
+    "pediatric": "child"
+    "children": "child"
+    "adolescent": "child"
+    "infant": "child"
+    "toddler": "child"
+    "adults": "adult"
+    "elderly": "adult"
+
+gi_symptoms:
+  accepted_values:
+    - "yes"
+    - "no"
+    - "partial"
+    - "unknown"
+  note: >
+    'partial' means GI symptoms reported for some but not all participants.
+    'unknown' means GI symptom status not reported.
+
+antibiotics_reported:
+  accepted_values:
+    - "yes"
+    - "no"
+    - "unknown"
+  note: >
+    'yes' means antibiotic usage is documented in the study metadata.
+    'no' means the study explicitly states no antibiotic use or excludes
+    recent antibiotic users. 'unknown' means not reported.
+
+source_db:
+  accepted_values:
+    - "bioproject"
+    - "ena"
+    - "geo"
+    - "mgnify"
+    - "qiita"

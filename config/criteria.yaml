@@ -1,0 +1,128 @@
+# Inclusion / Exclusion Criteria for ASD Microbiome Atlas v1.0
+# These criteria drive the screening_agent decision logic.
+
+version: "1.0"
+
+inclusion_criteria:
+  I1_human:
+    label: "Human subjects"
+    description: "Study participants must be Homo sapiens"
+    required: true
+
+  I2_asd_phenotype:
+    label: "ASD phenotype"
+    description: >
+      ASD / autism / autism spectrum disorder must be explicitly stated
+      in the project description, article, or repository metadata
+    required: true
+    keywords:
+      - "autism"
+      - "autism spectrum disorder"
+      - "ASD"
+      - "autistic"
+
+  I3_microbiome_sequencing:
+    label: "Microbiome sequencing data"
+    description: "Dataset contains microbiome sequencing of an accepted type"
+    required: true
+    accepted_types:
+      - "16S"
+      - "shotgun"
+      - "metagenome"
+      - "metatranscriptome"
+
+  I4_body_site:
+    label: "Body site determinable"
+    description: >
+      Sampling body site must be identifiable and normalizable to
+      a controlled vocabulary term. If unclear on landing page, check
+      BioSample / paper before excluding.
+    required: true
+    accepted_sites:
+      - "stool"
+      - "gut"
+      - "oral"
+      - "oral_saliva"
+      - "oral_plaque"
+      - "rectal_swab"
+      - "nasal"
+      - "skin"
+      - "other"
+
+  I5_public_access:
+    label: "Public accessibility"
+    description: >
+      Public accession number with a working link in at least one
+      supported repository: BioProject, SRA, ENA, GEO, MGnify, Qiita, PubMed
+    required: true
+
+  I6_comparator:
+    label: "ASD vs Control comparison"
+    description: >
+      Study must include both ASD and control groups.
+      ASD-only studies without controls are excluded in v1.0.
+    required: true
+
+exclusion_criteria:
+  E1_non_human:
+    label: "Non-human"
+    reason_tag: "non_human"
+    description: "Animal models or non-human subjects"
+
+  E2_not_asd:
+    label: "Not ASD"
+    reason_tag: "not_asd"
+    description: >
+      No explicit ASD/autism phenotype (e.g., general 'neurodevelopmental'
+      without specifying ASD)
+
+  E3_not_microbiome_seq:
+    label: "Not microbiome sequencing"
+    reason_tag: "not_microbiome_sequencing"
+    description: >
+      No microbiome sequencing data (e.g., host genome/transcriptome only,
+      metabolomics only)
+
+  E4_no_public_link:
+    label: "No public data link"
+    reason_tag: "no_public_data_link"
+    description: "No public accession or working link; restricted-access only"
+
+  E5_duplicate:
+    label: "Duplicate dataset"
+    reason_tag: "duplicate_dataset"
+    description: "Same BioProject/study/cohort already captured from another source"
+
+  E6_no_control:
+    label: "No control group"
+    reason_tag: "no_control_group"
+    description: "ASD-only study without a control/comparison group (v1.0 scope)"
+
+  E7_body_site_unknown:
+    label: "Body site undetermined"
+    reason_tag: "insufficient_metadata"
+    description: >
+      Body site cannot be determined even after checking BioSample and
+      linked publications
+
+  E8_other:
+    label: "Other"
+    reason_tag: "other"
+    description: "Other reason — must include explanation in notes field"
+
+# Screening decision values
+decisions:
+  - "include"
+  - "exclude"
+  - "maybe"
+
+# Valid exclusion_reason tags (for screening_log.csv)
+exclusion_reason_tags:
+  - "non_human"
+  - "not_asd"
+  - "not_microbiome_sequencing"
+  - "no_public_data_link"
+  - "duplicate_dataset"
+  - "no_control_group"
+  - "insufficient_metadata"
+  - "other"
