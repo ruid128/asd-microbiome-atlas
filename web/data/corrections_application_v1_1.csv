@@ -1,0 +1,36 @@
+correction_id,dataset_id,accession,field,action,notes
+CORR001,SCR00124,PRJNA533120,record,applied,Added accession-level record requested for v1.1.
+CORR002,SCR00158,PRJNA744027,publication_and_counts,applied,Corrected publication to Liu et al. 2023 and participant/BioSample/run counts.
+CORR003,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR004,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR005,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR006,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR007,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR008,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR009,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR010,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR011,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR012,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR013,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR014,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR015,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR016,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR017,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR018,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR019,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR020,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR021,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR022,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR023,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR024,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR025,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR026,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR027,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR028,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR029,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR030,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR031,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR032,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR033,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR034,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+CORR035,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
