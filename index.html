@@ -83,6 +83,9 @@
   .doc-card a { color: var(--accent); font-weight: 600; text-decoration: none; }
   .doc-card a:hover { text-decoration: underline; }
   .doc-card p { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .contribution { background: #f1f5f9; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; }
+  .contribution strong { color: var(--accent); font-size: 20px; }
+  .contribution p { color: var(--muted); font-size: 12px; margin-top: 6px; }
   .markdown { white-space: pre-wrap; color: var(--text); font-size: 13px; max-height: 620px; overflow: auto; }
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
   .overlay.open { display: flex; }
@@ -103,14 +106,13 @@
 <body>
 
 <header>
-  <h1>ASD Microbiome Atlas <span class="badge">v1.0</span></h1>
+  <h1>ASD Microbiome Atlas <span class="badge">v1.1</span></h1>
   <p>Curated atlas of public human ASD/control microbiome datasets with linked accessions and publication metadata</p>
   <div class="badges">
-    <span class="badge" id="hb-assessed">loading release</span>
-    <span class="badge" id="hb-included">loading datasets</span>
-    <span class="badge" id="hb-paper">— paper-linked</span>
+    <span class="badge" id="hb-accessions">loading accession records</span>
+    <span class="badge" id="hb-canonical">— canonical entities</span>
+    <span class="badge" id="hb-paper">— verified publication links</span>
     <span class="badge" id="hb-repo">— repository-only</span>
-    <span class="badge" id="hb-exceptions">— accepted exceptions</span>
   </div>
 </header>
 
@@ -128,10 +130,14 @@
   <div class="stats-grid">
     <div class="stat-card"><div class="num" id="sc-identified">—</div><div class="lbl">Records identified</div></div>
     <div class="stat-card"><div class="num" id="sc-screened">—</div><div class="lbl">Records screened</div></div>
-    <div class="stat-card"><div class="num" id="sc-included">—</div><div class="lbl">Final atlas datasets</div></div>
+    <div class="stat-card"><div class="num" id="sc-accessions">—</div><div class="lbl">Accession records</div></div>
+    <div class="stat-card"><div class="num" id="sc-canonical">—</div><div class="lbl">Canonical entities</div></div>
     <div class="stat-card"><div class="num" id="sc-countries">—</div><div class="lbl">Countries</div></div>
-    <div class="stat-card"><div class="num" id="sc-subjects">—</div><div class="lbl">Total participants</div></div>
-    <div class="stat-card"><div class="num" id="sc-paper">—</div><div class="lbl">Paper-linked datasets</div></div>
+    <div class="stat-card"><div class="num" id="sc-paper">—</div><div class="lbl">Verified publication links</div></div>
+  </div>
+  <div class="contribution">
+    <strong>Overlap-adjusted contribution: 2,770 ASD + 2,187 controls = 4,957.</strong>
+    <p>This is not guaranteed to represent globally unique participants because anonymized cross-study overlap can remain undetectable.</p>
   </div>
   <div class="charts-grid">
     <div class="chart-card"><h3>Country distribution (top 10)</h3><canvas id="cCountry"></canvas></div>
@@ -142,14 +148,14 @@
 </div>
 
 <div id="s-atlas" class="section">
-  <p class="section-desc">Unit of record: one frozen release v1.0 dataset entity. Accession-level records are distinguished from canonical dataset entities through release curation and linked accessions in the detail view.</p>
+  <p class="section-desc">Unit of record: one release candidate v1.1 accession-level record. The 70 accession records are mapped to 64 provisional canonical dataset entities.</p>
   <div class="section-note">Repository files remain hosted by the original public data providers. The atlas indexes and harmonizes metadata and provides verified links for data access.</div>
   <div class="filters-bar">
     <input id="q" type="text" placeholder="Search title, accession, publication, country…" oninput="filter()">
     <select id="fAssay" onchange="filter()"><option value="">All assays</option></select>
     <select id="fSite" onchange="filter()"><option value="">All body sites</option></select>
     <select id="fDesign" onchange="filter()"><option value="">All study designs</option></select>
-    <select id="fClass" onchange="filter()"><option value="">All release classes</option></select>
+    <select id="fStatus" onchange="filter()"><option value="">All record statuses</option></select>
     <select id="fCountry" onchange="filter()"><option value="">All countries</option></select>
     <span class="cnt" id="tcnt"></span>
   </div>
@@ -157,17 +163,20 @@
     <thead><tr>
       <th onclick="sort('dataset_id',this)">ID</th>
       <th onclick="sort('accession',this)">Accession</th>
+      <th onclick="sort('canonical_entity_id',this)">Canonical entity</th>
       <th>Dataset title</th>
       <th onclick="sort('country',this)">Country</th>
       <th onclick="sort('body_site',this)">Body site</th>
       <th onclick="sort('assay_type',this)">Assay</th>
       <th onclick="sort('study_design',this)">Study design</th>
-      <th onclick="sort('n_total',this)">n total</th>
+      <th onclick="sort('n_total',this)">Study-reported N</th>
+      <th onclick="sort('biosamples',this)">BioSamples</th>
+      <th onclick="sort('runs',this)">Runs</th>
       <th onclick="sort('paper_verified',this)">Paper</th>
       <th onclick="sort('raw_data_public',this)">Raw data</th>
-      <th onclick="sort('release_class',this)">Status</th>
+      <th onclick="sort('record_status',this)">Status</th>
     </tr></thead>
-    <tbody id="tbody"><tr><td colspan="11">Loading release data…</td></tr></tbody>
+    <tbody id="tbody"><tr><td colspan="14">Loading release data…</td></tr></tbody>
   </table>
 </div>
 
@@ -178,7 +187,7 @@
       <div style="width:100%;max-width:720px;margin-bottom:10px;">
         <div style="font-size:11px;font-weight:600;color:#6c757d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Identification</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <div class="pbox" style="flex:1;min-width:100px;"><div class="pnum sm blue">196</div><div class="plbl">BioProject</div></div>
+          <div class="pbox" style="flex:1;min-width:100px;"><div class="pnum sm blue">196</div><div class="plbl">BioProject/SRA</div></div>
           <div class="pbox" style="flex:1;min-width:70px;"><div class="pnum sm blue">18</div><div class="plbl">GEO</div></div>
           <div class="pbox" style="flex:1;min-width:100px;"><div class="pnum sm blue">110</div><div class="plbl">ENA</div></div>
           <div class="pbox" style="flex:1;min-width:70px;"><div class="pnum sm blue">3</div><div class="plbl">MGnify</div></div>
@@ -190,30 +199,31 @@
       <div class="prow" style="margin:8px 0;">
         <div class="pbox main-b" style="flex:1;"><div class="pnum blue">340</div><div class="plbl">Records identified from databases</div></div>
         <div class="parrow-h"></div>
-        <div class="pbox side-b" style="min-width:220px;"><div class="pnum red" style="font-size:22px;">132</div><div class="plbl">Duplicate records removed</div></div>
+        <div class="pbox side-b" style="min-width:220px;"><div class="pnum red" style="font-size:22px;">132</div><div class="plbl">Duplicate or linked-duplicate records removed before screening</div></div>
       </div>
       <div class="parrow-v"></div>
       <div class="prow" style="margin:8px 0;">
         <div class="pbox main-b" style="flex:1;"><div class="pnum blue">208</div><div class="plbl">Records screened</div></div>
         <div class="parrow-h"></div>
         <div class="pbox side-b" style="min-width:260px;">
-          <div class="pnum red" style="font-size:22px;">134</div>
+          <div class="pnum red" style="font-size:22px;">133</div>
           <div class="plbl">Records excluded at screening</div>
           <ul class="pul">
-            <li>non_human: 65</li><li>no_control_group: 27</li><li>not_asd: 19</li>
-            <li>not_microbiome_sequencing: 17</li><li>duplicate_dataset: 3</li>
-            <li>insufficient_metadata: 2</li><li>other: 1</li>
+            <li>Non-human: 65</li><li>No control group: 27</li><li>Not ASD: 19</li>
+            <li>Not microbiome sequencing: 17</li><li>Duplicate dataset: 2</li>
+            <li>Insufficient metadata: 2</li><li>Other: 1</li>
           </ul>
         </div>
       </div>
       <div class="parrow-v"></div>
       <div class="prow" style="margin:8px 0;">
-        <div class="pbox main-b" style="flex:1;"><div class="pnum blue">74</div><div class="plbl">Records included after screening</div></div>
+        <div class="pbox main-b" style="flex:1;"><div class="pnum blue">75</div><div class="plbl">Records included after screening</div></div>
         <div class="parrow-h"></div>
-        <div class="pbox side-b" style="min-width:240px;"><div class="pnum red" style="font-size:22px;">5</div><div class="plbl">Removed during final curation/QC</div></div>
+        <div class="pbox side-b" style="min-width:240px;"><div class="pnum red" style="font-size:22px;">5</div><div class="plbl">Removed during accession-level curation and final QC</div></div>
       </div>
       <div class="parrow-v"></div>
-      <div class="pbox ok-b" style="max-width:720px;width:100%;margin-top:8px;"><div class="pnum green">69</div><div class="plbl">Datasets included in final frozen atlas release</div></div>
+      <div class="pbox ok-b" style="max-width:720px;width:100%;margin-top:8px;"><div class="pnum green">70</div><div class="plbl">Accession-level records included in v1.1</div></div>
+      <div class="section-note" style="max-width:720px;margin-top:16px;">PubMed was used for metadata verification only and was not counted as a retrieval source.</div>
     </div>
   </div>
 </div>
@@ -234,12 +244,14 @@
 
 <div id="s-downloads" class="section">
   <div class="doc-grid">
-    <div class="doc-card"><a href="data/datasets_release_v1_core.csv" download>datasets_release_v1_core.csv</a><p>Canonical compact public-facing release file for overview counters, charts, filters, and dataset table.</p></div>
-    <div class="doc-card"><a href="data/datasets_release_v1_extended.csv" download>datasets_release_v1_extended.csv</a><p>Extended companion file for detail view, linked accessions, sparse metadata, and power users.</p></div>
-    <div class="doc-card"><a href="data/datasets_release_v1_manifest.md" download>datasets_release_v1_manifest.md</a><p>Release structure, provenance, and field-selection rationale.</p></div>
-    <div class="doc-card"><a href="data/prisma_summary_v1.md" download>prisma_summary_v1.md</a><p>Auditable PRISMA-style screening summary for frozen release v1.0.</p></div>
-    <div class="doc-card"><a href="data/release_notes_v1.0.md" download>release_notes_v1.0.md</a><p>Scope, accepted exceptions, design decisions, and known limitations.</p></div>
-    <div class="doc-card"><a href="data/validation_report_v1.json" download>validation_report_v1.json</a><p>Saved validation report for the frozen release package.</p></div>
+    <div class="doc-card"><a href="data/datasets_release_v1_1_core.csv" download>datasets_release_v1_1_core.csv</a><p>Core release candidate table used for counters, charts, filters, and the atlas table.</p></div>
+    <div class="doc-card"><a href="data/datasets_release_v1_1_extended.csv" download>datasets_release_v1_1_extended.csv</a><p>Extended table used for detail view, linked accessions, sparse metadata, BioSamples, and runs.</p></div>
+    <div class="doc-card"><a href="data/release_schema_v1_1.json" download>release_schema_v1_1.json</a><p>Machine-readable schema for v1.1 validation.</p></div>
+    <div class="doc-card"><a href="data/corrections_application_v1_1.csv" download>corrections_application_v1_1.csv</a><p>Applied correction items for this release candidate.</p></div>
+    <div class="doc-card"><a href="data/validation_report_v1_1.json" download>validation_report_v1_1.json</a><p>Validation output for row counts, identifiers, and release summary metrics.</p></div>
+    <div class="doc-card"><a href="data/release_manifest_v1_1.md" download>release_manifest_v1_1.md</a><p>Release candidate source statement, metrics, and curation comments.</p></div>
+    <div class="doc-card"><a href="data/prisma_summary_v1_1.md" download>prisma_summary_v1_1.md</a><p>PRISMA-style screening summary for v1.1.</p></div>
+    <div class="doc-card"><a href="data/release_notes_v1_1.md" download>release_notes_v1_1.md</a><p>Release status, updated metrics, record-status summary, and specific corrections.</p></div>
   </div>
 </div>
 </main>
@@ -254,7 +266,8 @@
 </div>
 
 <script>
-const PRISMA = { identified: 340, screened: 208, included: 69 };
+const PRISMA = { identified: 340, screened: 208, accessions: 70 };
+let VALIDATION = null;
 let DATA = [];
 let EXTENDED = new Map();
 let charts = [];
@@ -283,8 +296,7 @@ function csvParse(text) {
 }
 
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-const na = v => v ? esc(v) : '<span class="na">—</span>';
-const intVal = v => Number.parseInt(v || '0', 10) || 0;
+const na = v => v ? esc(v) : '<span class="na">Not available</span>';
 const countBy = (arr, key) => arr.reduce((m, d) => (m[d[key] || 'unknown'] = (m[d[key] || 'unknown'] || 0) + 1, m), {});
 const uniq = (key) => [...new Set(DATA.map(d => d[key]).filter(Boolean))].sort((a, b) => a.localeCompare(b));
 
@@ -296,9 +308,10 @@ function show(name, el) {
   if (name === 'atlas' && !tBuilt) buildTable();
 }
 
-function releaseTag(d) {
-  if (d.release_class === 'standard') return '<span class="tag tok">standard</span>';
-  return '<span class="tag twarn">accepted exception</span>';
+function statusTag(d) {
+  const label = (d.record_status || 'included').replaceAll('_', ' ');
+  const cls = d.record_status === 'included' ? 'tok' : d.record_status === 'metadata_only' ? 'tdanger' : 'twarn';
+  return `<span class="tag ${cls}">${esc(label)}</span>`;
 }
 
 function yesNoTag(v) {
@@ -342,20 +355,18 @@ function setOptions(id, values) {
 function updateStats() {
   const paper = DATA.filter(d => d.paper_verified === 'yes').length;
   const repoOnly = DATA.length - paper;
-  const exceptions = DATA.filter(d => d.release_class !== 'standard').length;
+  const canonical = new Set(DATA.map(d => d.canonical_entity_id).filter(Boolean)).size;
   const countries = uniq('country').length;
-  const subjects = DATA.reduce((s, d) => s + intVal(d.n_total), 0);
   document.getElementById('sc-identified').textContent = PRISMA.identified;
   document.getElementById('sc-screened').textContent = PRISMA.screened;
-  document.getElementById('sc-included').textContent = DATA.length;
+  document.getElementById('sc-accessions').textContent = DATA.length;
+  document.getElementById('sc-canonical').textContent = canonical;
   document.getElementById('sc-countries').textContent = countries;
-  document.getElementById('sc-subjects').textContent = subjects.toLocaleString();
   document.getElementById('sc-paper').textContent = paper;
-  document.getElementById('hb-assessed').textContent = PRISMA.screened + ' records screened';
-  document.getElementById('hb-included').textContent = DATA.length + ' final datasets';
-  document.getElementById('hb-paper').textContent = paper + ' paper-linked';
+  document.getElementById('hb-accessions').textContent = DATA.length + ' accession records';
+  document.getElementById('hb-canonical').textContent = canonical + ' canonical entities';
+  document.getElementById('hb-paper').textContent = paper + ' verified publication links';
   document.getElementById('hb-repo').textContent = repoOnly + ' repository-only';
-  document.getElementById('hb-exceptions').textContent = exceptions + ' accepted exceptions';
 }
 
 function buildCharts() {
@@ -382,7 +393,7 @@ function buildTable() {
   setOptions('fAssay', uniq('assay_type'));
   setOptions('fSite', uniq('body_site'));
   setOptions('fDesign', uniq('study_design'));
-  setOptions('fClass', uniq('release_class'));
+  setOptions('fStatus', uniq('record_status'));
   setOptions('fCountry', uniq('country'));
   tBuilt = true;
   filter();
@@ -393,13 +404,13 @@ function filter() {
   const assay = document.getElementById('fAssay').value;
   const site = document.getElementById('fSite').value;
   const design = document.getElementById('fDesign').value;
-  const relClass = document.getElementById('fClass').value;
+  const status = document.getElementById('fStatus').value;
   const country = document.getElementById('fCountry').value;
   fData = DATA.filter(d => {
     if (assay && d.assay_type !== assay) return false;
     if (site && d.body_site !== site) return false;
     if (design && d.study_design !== design) return false;
-    if (relClass && d.release_class !== relClass) return false;
+    if (status && d.record_status !== status) return false;
     if (country && d.country !== country) return false;
     if (q) {
       const e = EXTENDED.get(d.dataset_id) || {};
@@ -425,19 +436,22 @@ function render() {
     if (!Number.isNaN(an) && !Number.isNaN(bn)) return sDir * (an - bn);
     return sDir * av.localeCompare(bv);
   });
-  document.getElementById('tcnt').textContent = sorted.length + ' of ' + DATA.length + ' datasets';
+  document.getElementById('tcnt').textContent = sorted.length + ' of ' + DATA.length + ' accession records';
   document.getElementById('tbody').innerHTML = sorted.map(d => `<tr onclick="openM('${esc(d.dataset_id)}')">
     <td>${esc(d.dataset_id)}</td>
     <td>${accessionHtml(d)}</td>
+    <td>${na(d.canonical_entity_id)}</td>
     <td style="max-width:390px">${esc(d.dataset_title)}</td>
     <td>${na(d.country)}</td>
     <td>${na(d.body_site)}</td>
     <td>${assayTag(d.assay_type)}</td>
     <td>${na(d.study_design.replaceAll('_', ' '))}</td>
     <td>${na(d.n_total)}</td>
+    <td>${na(d.biosamples)}</td>
+    <td>${na(d.runs)}</td>
     <td>${yesNoTag(d.paper_verified)}</td>
     <td>${yesNoTag(d.raw_data_public)}</td>
-    <td>${releaseTag(d)}</td>
+    <td>${statusTag(d)}</td>
   </tr>`).join('');
 }
 
@@ -461,14 +475,16 @@ function openM(id) {
   const e = EXTENDED.get(id) || {};
   document.getElementById('mTitle').textContent = d.dataset_title;
   document.getElementById('mLinks').innerHTML = linkedAccessionLinks(d, e);
-  const fld = (k, v) => `<div class="field"><div class="fk">${esc(k)}</div><div class="fv">${v ? esc(v) : '<span class="na">—</span>'}</div></div>`;
+  const fld = (k, v) => `<div class="field"><div class="fk">${esc(k)}</div><div class="fv">${v ? esc(v) : '<span class="na">Not available</span>'}</div></div>`;
   const full = (k, v) => v ? `<div class="field full"><div class="fk">${esc(k)}</div><div class="fv">${esc(v)}</div></div>` : '';
   let html =
-    fld('Dataset ID', d.dataset_id) + fld('Source DB', d.source_db) +
+    fld('Dataset ID', d.dataset_id) + fld('Canonical entity', d.canonical_entity_id) +
+    fld('Source DB', d.source_db) +
     fld('Accession', d.accession) + fld('Linked accessions', e.linked_accessions) +
     fld('Country', d.country) + fld('Study design', d.study_design) +
-    fld('n ASD', d.n_asd) + fld('n Control', d.n_control) +
-    fld('n Other', d.n_other) + fld('n Total', d.n_total) +
+    fld('ASD participants', d.n_asd) + fld('Controls/healthy donors', d.n_control) +
+    fld('Other participants', d.n_other) + fld('Study-reported N', d.n_total) +
+    fld('BioSamples', d.biosamples) + fld('Runs', d.runs) +
     fld('Body site', d.body_site) + fld('Raw body site', e.body_site_raw) +
     fld('Assay type', d.assay_type) + fld('Raw assay', e.assay_type_raw) +
     fld('Target region', e.target_region) + fld('Platform', d.sequencing_platform) +
@@ -476,9 +492,12 @@ function openM(id) {
     fld('Intervention type', e.intervention_type) + fld('Longitudinal', d.longitudinal_flag) +
     fld('Timepoints', e.timepoints) + fld('BioSample metadata', e.biosample_metadata_available) +
     fld('Raw data public', d.raw_data_public) + fld('Paper verified', d.paper_verified) +
-    fld('Release class', d.release_class) + fld('Publication title', d.publication_title) +
+    fld('Downloadable ASD/control pair', d.downloadable_asd_control_pair) +
+    fld('Participant contribution', d.participant_contribution) +
+    fld('Record status', d.record_status) + fld('Publication', d.linked_publications) +
+    fld('Publication title', d.publication_title) +
     fld('PMID', d.pmid) + fld('PMCID', e.pmcid) +
-    full('Linked publications', d.linked_publications) + full('Notes', d.notes || e.notes);
+    full('Notes', d.notes || e.notes);
   document.getElementById('mFields').innerHTML = html;
   document.getElementById('ov').classList.add('open');
 }
@@ -487,14 +506,23 @@ function closeM() { document.getElementById('ov').classList.remove('open'); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
 
 async function init() {
-  const [coreText, extendedText, manifest, releaseNotes] = await Promise.all([
-    fetch('data/datasets_release_v1_core.csv').then(r => r.text()),
-    fetch('data/datasets_release_v1_extended.csv').then(r => r.text()),
-    fetch('data/datasets_release_v1_manifest.md').then(r => r.text()),
-    fetch('data/release_notes_v1.0.md').then(r => r.text())
+  const [coreText, extendedText, manifest, releaseNotes, validation] = await Promise.all([
+    fetch('data/datasets_release_v1_1_core.csv').then(r => r.text()),
+    fetch('data/datasets_release_v1_1_extended.csv').then(r => r.text()),
+    fetch('data/release_manifest_v1_1.md').then(r => r.text()),
+    fetch('data/release_notes_v1_1.md').then(r => r.text()),
+    fetch('data/validation_report_v1_1.json').then(r => r.json())
   ]);
   DATA = csvParse(coreText);
   EXTENDED = new Map(csvParse(extendedText).map(d => [d.dataset_id, d]));
+  VALIDATION = validation;
+  const ids = DATA.map(d => d.dataset_id);
+  const uniqueIds = new Set(ids);
+  const extendedIds = new Set(EXTENDED.keys());
+  if (DATA.length !== 70) throw new Error('Expected 70 accession records, found ' + DATA.length);
+  if (uniqueIds.size !== DATA.length) throw new Error('dataset_id values are not unique');
+  if (ids.some(id => !extendedIds.has(id)) || extendedIds.size !== DATA.length) throw new Error('dataset_id mismatch between core and extended CSV');
+  if (DATA.filter(d => d.accession === 'PRJNA744027').length !== 1) throw new Error('PRJNA744027 must resolve to exactly one record');
   fData = [...DATA];
   document.getElementById('manifestText').textContent = manifest;
   document.getElementById('releaseText').textContent = releaseNotes;
@@ -505,7 +533,7 @@ async function init() {
 
 init().catch(err => {
   console.error(err);
-  document.getElementById('tbody').innerHTML = '<tr><td colspan="11">Release data could not be loaded.</td></tr>';
+  document.getElementById('tbody').innerHTML = '<tr><td colspan="14">Release data could not be loaded.</td></tr>';
 });
 </script>
 </body>
