@@ -1,44 +1,60 @@
 {
-  "release_version": "v1.1",
-  "status": "release_candidate",
-  "expected_core_rows": 70,
-  "expected_extended_rows": 70,
-  "expected_canonical_entities": 64,
-  "core_required_columns": [
+  "release_version": "v1.1-rc1",
+  "release_status": "release_candidate",
+  "snapshot_date": "2026-07-22",
+  "primary_key": "dataset_id",
+  "expected_rows": 70,
+  "null_policy": "Blank numeric values mean unknown, not curated, or not applicable as specified by the adjacent status/scope field; blanks never mean zero.",
+  "core_fields": [
     "dataset_id",
-    "canonical_entity_id",
     "source_db",
     "accession",
     "dataset_title",
     "url",
+    "linked_accessions",
     "linked_publications",
     "publication_title",
     "doi",
     "pmid",
     "paper_verified",
+    "publication_link_status",
     "country",
     "study_design",
     "n_total",
     "n_asd",
     "n_control",
     "n_other",
+    "participant_count_scope",
+    "public_count_status",
+    "public_n_total",
+    "public_n_asd",
+    "public_n_control",
     "body_site",
+    "specimen_type",
+    "anatomical_site",
     "assay_type",
+    "assay_layers",
     "sequencing_platform",
-    "intervention_flag",
-    "longitudinal_flag",
     "raw_data_public",
-    "biosample_metadata_available",
+    "raw_data_granularity",
+    "participant_resolved_raw_data",
     "downloadable_asd_control_pair",
-    "participant_contribution",
     "record_status",
-    "biosamples",
-    "runs",
-    "notes"
+    "release_class",
+    "canonical_dataset_id",
+    "dataset_role",
+    "count_as_independent_dataset",
+    "count_in_unique_participant_total",
+    "unique_asd_contribution",
+    "unique_control_contribution",
+    "mapping_status",
+    "correction_issue_ids",
+    "notes",
+    "release_version",
+    "release_status"
   ],
-  "extended_required_columns": [
+  "extended_fields": [
     "dataset_id",
-    "canonical_entity_id",
     "source_db",
     "accession",
     "dataset_title",
@@ -69,71 +85,615 @@
     "timepoints",
     "biosample_metadata_available",
     "raw_data_public",
-    "downloadable_asd_control_pair",
-    "participant_contribution",
+    "release_class",
+    "notes",
+    "release_version",
+    "release_status",
     "record_status",
-    "biosamples",
-    "runs",
-    "notes"
+    "publication_link_status",
+    "candidate_publication_title",
+    "candidate_doi",
+    "candidate_pmid",
+    "candidate_pmcid",
+    "participant_count_scope",
+    "article_count_status",
+    "article_n_total",
+    "article_n_asd",
+    "article_n_control",
+    "article_n_other",
+    "recruited_count_status",
+    "recruited_n_total",
+    "recruited_n_asd",
+    "recruited_n_control",
+    "recruited_n_other",
+    "public_count_status",
+    "public_n_total",
+    "public_n_asd",
+    "public_n_control",
+    "public_n_other",
+    "n_mothers",
+    "n_siblings",
+    "n_donors",
+    "n_other_diagnosis",
+    "all_human_hosts_n",
+    "public_biosample_count",
+    "public_run_count",
+    "raw_data_granularity",
+    "participant_resolved_raw_data",
+    "participant_resolution_source",
+    "downloadable_asd_control_pair",
+    "repeated_sampling",
+    "repeated_assay",
+    "specimen_type",
+    "anatomical_site",
+    "assay_layers",
+    "archive_library_strategy",
+    "archive_metadata_conflict",
+    "canonical_dataset_id",
+    "dataset_role",
+    "participant_overlap",
+    "count_as_independent_dataset",
+    "count_in_unique_participant_total",
+    "unique_asd_contribution",
+    "unique_control_contribution",
+    "unique_asd_control_contribution",
+    "participant_count_basis",
+    "mapping_status",
+    "correction_issue_ids",
+    "curator_evidence"
   ],
-  "allowed_values": {
-    "source_db": [
-      "BioProject",
-      "ENA",
-      "Qiita"
-    ],
-    "paper_verified": [
-      "yes",
-      "no"
-    ],
-    "study_design": [
-      "case_control",
-      "cross_sectional",
-      "intervention"
-    ],
-    "body_site": [
-      "stool",
-      "gut",
-      "oral",
-      "other"
-    ],
-    "assay_type": [
-      "16S",
-      "metagenome",
-      "shotgun"
-    ],
-    "intervention_flag": [
-      "yes",
-      "no"
-    ],
-    "longitudinal_flag": [
-      "yes",
-      "no"
-    ],
-    "raw_data_public": [
-      "yes",
-      "no"
-    ],
-    "biosample_metadata_available": [
-      "yes",
-      "no"
-    ],
-    "downloadable_asd_control_pair": [
-      "yes",
-      "no",
-      "unknown"
-    ],
-    "participant_contribution": [
-      "full",
-      "partial",
-      "zero_additional"
+  "fields": {
+    "dataset_id": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Dataset id."
+    },
+    "source_db": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Source db."
+    },
+    "accession": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Accession."
+    },
+    "dataset_title": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Dataset title."
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Url."
+    },
+    "linked_accessions": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Linked accessions."
+    },
+    "linked_publications": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Linked publications."
+    },
+    "publication_title": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Publication title."
+    },
+    "doi": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Doi."
+    },
+    "pmid": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Pmid."
+    },
+    "pmcid": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Pmcid."
+    },
+    "paper_verified": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Paper verified."
+    },
+    "country": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Country."
+    },
+    "study_design": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Study design."
+    },
+    "n_total": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Primary harmonized study-level count; interpret with participant_count_scope."
+    },
+    "n_asd": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N asd."
+    },
+    "n_control": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N control."
+    },
+    "n_other": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N other."
+    },
+    "body_site": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Body site."
+    },
+    "body_site_raw": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Body site raw."
+    },
+    "assay_type": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Assay type."
+    },
+    "assay_type_raw": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Assay type raw."
+    },
+    "target_region": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Target region."
+    },
+    "sequencing_platform": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Sequencing platform."
+    },
+    "library_layout": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Library layout."
+    },
+    "intervention_flag": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Intervention flag."
+    },
+    "intervention_type": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Intervention type."
+    },
+    "longitudinal_flag": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Longitudinal flag."
+    },
+    "timepoints": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Timepoints."
+    },
+    "biosample_metadata_available": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Biosample metadata available."
+    },
+    "raw_data_public": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Raw data public."
+    },
+    "release_class": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Release class."
+    },
+    "notes": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Notes."
+    },
+    "release_version": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Release version."
+    },
+    "release_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Release status."
+    },
+    "record_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Record status."
+    },
+    "publication_link_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Publication link status."
+    },
+    "candidate_publication_title": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Candidate publication title."
+    },
+    "candidate_doi": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Candidate doi."
+    },
+    "candidate_pmid": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Candidate pmid."
+    },
+    "candidate_pmcid": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Candidate pmcid."
+    },
+    "participant_count_scope": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Participant count scope."
+    },
+    "article_count_status": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Article count status."
+    },
+    "article_n_total": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Verified analyzed publication cohort total when separately curated."
+    },
+    "article_n_asd": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Article n asd."
+    },
+    "article_n_control": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Article n control."
+    },
+    "article_n_other": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Article n other."
+    },
+    "recruited_count_status": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Recruited count status."
+    },
+    "recruited_n_total": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Verified pre-QC recruited cohort total when distinct from analyzed data."
+    },
+    "recruited_n_asd": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Recruited n asd."
+    },
+    "recruited_n_control": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Recruited n control."
+    },
+    "recruited_n_other": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Recruited n other."
+    },
+    "public_count_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Public count status."
+    },
+    "public_n_total": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Verified unique public participant total, not BioSample or run count."
+    },
+    "public_n_asd": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Public n asd."
+    },
+    "public_n_control": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Public n control."
+    },
+    "public_n_other": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Public n other."
+    },
+    "n_mothers": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N mothers."
+    },
+    "n_siblings": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N siblings."
+    },
+    "n_donors": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N donors."
+    },
+    "n_other_diagnosis": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "N other diagnosis."
+    },
+    "all_human_hosts_n": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "All human hosts n."
+    },
+    "public_biosample_count": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Current public BioSample count at the audit snapshot."
+    },
+    "public_run_count": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Current public sequencing run count at the audit snapshot."
+    },
+    "raw_data_granularity": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Raw data granularity."
+    },
+    "participant_resolved_raw_data": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Participant resolved raw data."
+    },
+    "participant_resolution_source": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Participant resolution source."
+    },
+    "downloadable_asd_control_pair": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Downloadable asd control pair."
+    },
+    "repeated_sampling": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Repeated sampling."
+    },
+    "repeated_assay": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Repeated assay."
+    },
+    "specimen_type": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Specimen type."
+    },
+    "anatomical_site": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Anatomical site."
+    },
+    "assay_layers": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Assay layers."
+    },
+    "archive_library_strategy": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Archive library strategy."
+    },
+    "archive_metadata_conflict": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Archive metadata conflict."
+    },
+    "canonical_dataset_id": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Canonical dataset id."
+    },
+    "dataset_role": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Dataset role."
+    },
+    "participant_overlap": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Participant overlap."
+    },
+    "count_as_independent_dataset": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Count as independent dataset."
+    },
+    "count_in_unique_participant_total": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Count in unique participant total."
+    },
+    "unique_asd_contribution": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Unique asd contribution."
+    },
+    "unique_control_contribution": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Unique control contribution."
+    },
+    "unique_asd_control_contribution": {
+      "type": "integer",
+      "required": false,
+      "nullable": true,
+      "description": "Unique asd control contribution."
+    },
+    "participant_count_basis": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Participant count basis."
+    },
+    "mapping_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "description": "Mapping status."
+    },
+    "correction_issue_ids": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Semicolon-delimited correction tracker IDs applied to the row."
+    },
+    "curator_evidence": {
+      "type": "string",
+      "required": false,
+      "nullable": true,
+      "description": "Aggregate non-identifying evidence supporting cohort mapping."
+    }
+  },
+  "controlled_vocabularies": {
+    "release_status": [
+      "release_candidate"
     ],
     "record_status": [
       "included",
-      "repository_mirror_or_alternate_release",
       "included_partial_public",
+      "included_partial_overlap",
       "metadata_only",
-      "included_partial_overlap"
+      "repository_mirror_or_alternate_release",
+      "awaiting_verification"
+    ],
+    "tri_state": [
+      "yes",
+      "no",
+      "partial",
+      "unknown"
+    ],
+    "count_flag": [
+      "yes",
+      "no",
+      "partial",
+      "uncertain"
+    ],
+    "publication_link_status": [
+      "verified",
+      "not_linked",
+      "candidate_unverified"
     ]
   }
 }

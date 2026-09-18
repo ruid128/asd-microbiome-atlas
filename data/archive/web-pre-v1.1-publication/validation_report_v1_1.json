@@ -1,0 +1,36 @@
+{
+  "validation_status": "pass",
+  "validation_date": "2026-07-23",
+  "release_version": "v1.1-rc1",
+  "release_status": "release_candidate",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "rows": 70,
+    "correction_items": 35,
+    "record_status_counts": {
+      "included": 57,
+      "included_partial_overlap": 1,
+      "included_partial_public": 4,
+      "metadata_only": 3,
+      "repository_mirror_or_alternate_release": 5
+    },
+    "contribution_flag_counts": {
+      "no": 10,
+      "partial": 5,
+      "yes": 55
+    },
+    "canonical_dataset_entities": 64,
+    "provisional_unique_asd_contribution": 2770,
+    "provisional_unique_control_contribution": 2187,
+    "provisional_unique_asd_control_contribution": 4957,
+    "unresolved_records": 0
+  },
+  "sha256": {
+    "core": "3eca22555006aa70a2203094f58e0cb6e14e55fe16eed267e82a7ef3b506d1f0",
+    "extended": "3cee4b050d9419005ded700b5116d1d2ab9cbdb4f17381587449b16ee7c75f6f",
+    "schema": "3e4feea2cb953856bddd27cda58dd06954709b1eba78bef0df800129e4088300",
+    "corrections_application": "01655545676c750e3dcdcaa55e1712cd9929f95b937a18e9d7cecf8afcc46fd6"
+  },
+  "frozen_v1_unchanged": true
+}

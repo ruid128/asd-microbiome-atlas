@@ -1,4 +1,4 @@
-# PRISMA Summary v1.1
+# PRISMA Summary v1.1-rc1
 
 ## Search sources
 
@@ -16,7 +16,7 @@
 4. Records excluded: 133
 5. Records included after screening: 75
 6. Removed during accession-level curation and final QC: 5
-7. Accession-level records included in v1.1: 70
+7. Accession-level records included in v1.1-rc1: 70
 
 ## Exclusion reasons
 

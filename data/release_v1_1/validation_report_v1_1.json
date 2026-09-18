@@ -1,70 +1,36 @@
 {
-  "release_version": "v1.1",
-  "status": "pass",
+  "validation_status": "pass",
+  "validation_date": "2026-07-23",
+  "release_version": "v1.1-rc1",
   "release_status": "release_candidate",
   "errors": [],
   "warnings": [],
-  "summary": {
-    "accession_records": 70,
-    "canonical_entities": 64,
-    "verified_publication_links": 63,
-    "repository_only_records": 7,
-    "public_raw_data": {
-      "yes": 67,
-      "no": 3
-    },
-    "biosample_metadata": {
-      "yes": 69,
-      "no": 1
-    },
-    "downloadable_asd_control_pair": {
-      "yes": 55,
-      "no": 11,
-      "unknown": 4
-    },
-    "participant_contribution": {
-      "full": 55,
-      "zero_additional": 10,
-      "partial": 5
-    },
-    "record_status": {
+  "metrics": {
+    "rows": 70,
+    "correction_items": 35,
+    "record_status_counts": {
       "included": 57,
-      "metadata_only": 3,
-      "repository_mirror_or_alternate_release": 5,
+      "included_partial_overlap": 1,
       "included_partial_public": 4,
-      "included_partial_overlap": 1
+      "metadata_only": 3,
+      "repository_mirror_or_alternate_release": 5
     },
-    "overlap_adjusted_contribution": {
-      "asd": 2770,
-      "controls": 2187,
-      "total": 4957
+    "contribution_flag_counts": {
+      "no": 10,
+      "partial": 5,
+      "yes": 55
     },
-    "applied_correction_items": 35,
-    "unresolved_contribution_flags": 0
+    "canonical_dataset_entities": 64,
+    "provisional_unique_asd_contribution": 2770,
+    "provisional_unique_control_contribution": 2187,
+    "provisional_unique_asd_control_contribution": 4957,
+    "unresolved_records": 0
   },
-  "prisma": {
-    "records_identified": 340,
-    "duplicates_removed": 132,
-    "records_screened": 208,
-    "records_excluded": 133,
-    "records_included_after_screening": 75,
-    "removed_during_final_qc": 5,
-    "accession_records_included": 70,
-    "sources": {
-      "BioProject/SRA": 196,
-      "GEO": 18,
-      "ENA": 110,
-      "MGnify": 3,
-      "Qiita": 13
-    },
-    "exclusion_reasons": {
-      "Non-human": 65,
-      "No control group": 27,
-      "Not ASD": 19,
-      "Not microbiome sequencing": 17,
-      "Duplicate dataset": 2,
-      "Insufficient metadata": 2,
-      "Other": 1
-    }
-  }
+  "sha256": {
+    "core": "3eca22555006aa70a2203094f58e0cb6e14e55fe16eed267e82a7ef3b506d1f0",
+    "extended": "3cee4b050d9419005ded700b5116d1d2ab9cbdb4f17381587449b16ee7c75f6f",
+    "schema": "3e4feea2cb953856bddd27cda58dd06954709b1eba78bef0df800129e4088300",
+    "corrections_application": "01655545676c750e3dcdcaa55e1712cd9929f95b937a18e9d7cecf8afcc46fd6"
+  },
+  "frozen_v1_unchanged": true
 }

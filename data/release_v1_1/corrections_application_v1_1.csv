@@ -1,36 +1,36 @@
-correction_id,dataset_id,accession,field,action,notes
-CORR001,SCR00124,PRJNA533120,record,applied,Added accession-level record requested for v1.1.
-CORR002,SCR00158,PRJNA744027,publication_and_counts,applied,Corrected publication to Liu et al. 2023 and participant/BioSample/run counts.
-CORR003,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR004,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR005,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR006,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR007,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR008,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR009,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR010,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR011,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR012,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR013,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR014,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR015,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR016,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR017,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR018,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR019,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR020,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR021,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR022,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR023,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR024,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR025,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR026,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR027,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR028,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR029,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR030,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR031,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR032,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR033,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR034,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
-CORR035,,,release_candidate_item,applied,Applied v1.1 release-candidate correction item.
+﻿issue_id,affected_record,application_status,implementation_fields,implementation_note
+RC001,SCR00119,applied,linked_accessions,Added complementary ASD accession PRJNA518760.
+RC002,SCR00122,applied,participant_count_scope;n_mothers;n_donors;all_human_hosts_n,Separated primary child count from ancillary human hosts.
+RC003,SCR00124,applied,new_record_SCR00124;participant_overlap;unique_contribution,Added 82-record resequencing dataset and counted only its distinct B cohort.
+RC004,SCR00126,applied,dataset_role;raw_data_granularity;participant_resolved_raw_data,Marked BioSample metadata-only record.
+RC005,SCR00118,applied,assay_layers;public_biosample_count;public_run_count;repeated_assay,Represented 16S and shotgun layers without duplicating participants.
+RC006,SCR00046,applied,article_n_*;public_n_*;downloadable_asd_control_pair,Separated 68-person article cohort from ten public ASD records.
+RC007,SCR00162,applied,article_n_*;public_n_*;downloadable_asd_control_pair,Marked public ASD-only subset with no downloadable controls.
+RC008,SCR00147;SCR00189,applied,canonical_dataset_id;participant_overlap;unique_contribution,Encoded prior-cohort reuse and zero contribution for SCR00147.
+RC009,SCR00092,applied,article_n_*;public_biosample_count;public_run_count;raw_data_granularity,Separated 429-person article cohort from current public exposure.
+RC010,SCR00013,applied,article_n_*;public_n_*;assay_layers;repeated_assay,Separated article/public counts and bacterial/fungal assays.
+RC011,SCR00018,applied,article_n_*;public_n_*;linked_accessions,Stored article and repository group counts separately.
+RC012,SCR00140,applied,article_n_*;public_n_*;public_biosample_count,Stored 30/20 article and 29/20 public counts separately.
+RC013,SCR00048,applied,raw_data_public;raw_data_granularity;record_status,Corrected false-positive raw-data availability.
+RC014,SCR00041,applied,raw_data_granularity;participant_resolved_raw_data;public_run_count,Marked pooled release and two archive records.
+RC015,SCR00116,applied,raw_data_granularity;participant_resolved_raw_data;public_run_count,Marked pooled mother-child release.
+RC016,SCR00086,applied,record_status;raw_data_granularity;public_count_status,Marked awaiting-data BioProject metadata record.
+RC017,SCR00130,applied,participant_resolution_source;public_n_*;public_run_count,Resolved 96 participants from run aliases.
+RC018,SCR00194,applied,participant_resolution_source;public_n_*;public_run_count,Resolved 58 participants from run aliases.
+RC019,SCR00150,applied,article_n_*;public_run_count;participant_resolution_source,Preserved article cohort while blocking unsupported run labels.
+RC020,SCR00006,applied,linked_accessions,Added PRJCA020304 and CRA013154.
+RC021,SCR00007;SCR00088,applied,canonical_dataset_id;dataset_role;unique_contribution,Encoded complete cross-registry duplicate.
+RC022,SCR00015,applied,article_n_*;linked_accessions;participant_count_basis,Retained supplement-supported 43/31 and ERP104786.
+RC023,SCR00020,applied,linked_accessions;target_region;library_layout,Added ERP111721 and V3-V4 paired assay details.
+RC024,SCR00026,applied,article_n_*;recruited_n_*,Separated recruited 54/39 from analyzed 54/38.
+RC025,SCR00054,applied,public_biosample_count;public_run_count;specimen_type;anatomical_site,Encoded 18 participants and five GI biopsy sites.
+RC026,SCR00055,applied,archive_library_strategy;archive_metadata_conflict,Preserved article 16S classification and exposed ENA conflict.
+RC027,SCR00066,applied,archive_library_strategy;archive_metadata_conflict,Preserved shotgun classification and exposed ENA conflict.
+RC028,SCR00071,applied,assay_type;assay_layers;public_run_count;repeated_assay,Encoded paired 16S/ITS records for 46 participants.
+RC029,SCR00082,applied,article_n_*;public_n_total;public_run_count;participant_resolution_source,Kept five extra archive records diagnostically unassigned.
+RC030,SCR00109,applied,public_n_*;public_biosample_count;anatomical_site;repeated_sampling,Encoded 59 participants across 111 saliva/plaque samples.
+RC031,SCR00132,applied,target_region;archive_library_strategy;archive_metadata_conflict,Preserved V4 16S method and exposed archive conflict.
+RC032,SCR00158,applied,publication_link_status;n_*;public_n_*;n_donors;longitudinal_fields;sequencing_platform;unique_contribution,Replaced the incorrect Ye et al. linkage with Liu et al. 2023 and resolved 101 records to 24 ASD recipients plus 14 healthy donors.
+RC033,SCR00159,applied,article_n_*;recruited_n_*,Separated recruited 30/30 from analyzed 30/29.
+RC034,SCR00180,applied,assay_type;assay_layers;public_biosample_count;public_run_count;repeated_sampling,Encoded 196-person longitudinal multi-omic structure.
+RC035,SCR00202,applied,linked_accessions;body_site;public_n_*;public_biosample_count;repeated_sampling,Exposed existing PRJNA1433220 link and fecal/oral repeated samples in core/API fields.
