@@ -431,8 +431,8 @@ function setupInteraction() {
 
 async function init() {
   const payload = await fetchJson(RELEASE_FILE);
-  requireValue(payload.release_version === "v1.1-rc1", "Unexpected release version");
-  requireValue(payload.release_status === "release_candidate", "Unexpected release status");
+  requireValue(payload.release_version === "v1.1", "Unexpected release version");
+  requireValue(payload.release_status === "final", "Unexpected release status");
   requireValue(payload.metrics && typeof payload.metrics === "object", "Public release metrics are missing");
   requireValue(Array.isArray(payload.records), "Public release records are missing");
   validateRows(payload.records);
