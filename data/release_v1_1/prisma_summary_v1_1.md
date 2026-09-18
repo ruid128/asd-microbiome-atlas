@@ -1,4 +1,4 @@
-# PRISMA Summary v1.1-rc1
+# PRISMA-Informed Dataset Selection Summary v1.1
 
 ## Search sources
 
@@ -16,7 +16,7 @@
 4. Records excluded: 133
 5. Records included after screening: 75
 6. Removed during accession-level curation and final QC: 5
-7. Accession-level records included in v1.1-rc1: 70
+7. Accession-level records included in v1.1: 70
 
 ## Exclusion reasons
 
@@ -28,4 +28,6 @@
 - Insufficient metadata: 2
 - Other: 1
 
-PubMed was used for metadata verification only and was not counted as a retrieval source.
+PubMed was used for metadata verification only and was not counted as a
+retrieval source. Two reviewers independently screened candidate records, and
+final decisions were confirmed by consensus.

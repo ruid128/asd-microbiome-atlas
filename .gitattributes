@@ -1,7 +1,2 @@
 # Frozen release artifacts must retain their exact bytes and published SHA-256 values.
-data/release_v1_1/datasets_release_v1_1_core.csv -text
-data/release_v1_1/datasets_release_v1_1_extended.csv -text
-data/release_v1_1/release_schema_v1_1.json -text
-data/release_v1_1/corrections_application_v1_1.csv -text
-data/release_v1_1/validation_report_v1_1.json -text
-data/release_v1_1/release_manifest_v1_1.md -text
+data/release_v1_1/** -text

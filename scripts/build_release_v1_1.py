@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate v1.1-rc1 and build the limited public website data projection.
+"""Validate final v1.1 and build the limited public website data projection.
 
 The frozen files in data/release_v1_1 remain the repository source of truth.
 After integrity checks pass, the script exports only fields used by the public
@@ -62,12 +62,12 @@ PUBLIC_FIELDS = (
 )
 
 EXPECTED_SHA256 = {
-    "datasets_release_v1_1_core.csv": "3eca22555006aa70a2203094f58e0cb6e14e55fe16eed267e82a7ef3b506d1f0",
-    "datasets_release_v1_1_extended.csv": "3cee4b050d9419005ded700b5116d1d2ab9cbdb4f17381587449b16ee7c75f6f",
-    "release_schema_v1_1.json": "3e4feea2cb953856bddd27cda58dd06954709b1eba78bef0df800129e4088300",
+    "datasets_release_v1_1_core.csv": "251553197745c1be44c5d8e5f6977999d3a3023313dfe370f696e029928910bc",
+    "datasets_release_v1_1_extended.csv": "ebd3074f6d7525fa454a807795cd30b6eb5e40024677ee5d872aede64a5bc5b6",
+    "release_schema_v1_1.json": "f69efcd93961a3786ded25be19589a80537f9c5e689186eb0273ab5c9a330e1a",
     "corrections_application_v1_1.csv": "01655545676c750e3dcdcaa55e1712cd9929f95b937a18e9d7cecf8afcc46fd6",
-    "validation_report_v1_1.json": "2360bb830c4ae43c434ba664a5e356818311469e209625737860a99ce06593e1",
-    "release_manifest_v1_1.md": "023f686b12fe1a32ca60fca92351b60b96e3dc2fa222fb9621d19c7a1c90c5af",
+    "validation_report_v1_1.json": "8a24d5465bbc99b2a7c58d7613d9c6b6fe2dda5c8eba58e1eb7b0ea56aa6633a",
+    "release_manifest_v1_1.md": "6c42cbd87cd34905e3a98ca0d79c8e7058534c49ed6efea1e9420b6aef472d78",
 }
 
 
@@ -211,9 +211,9 @@ def validate_release() -> dict[str, object]:
         (RELEASE / "validation_report_v1_1.json").read_text(encoding="utf-8-sig")
     )
     require(report.get("validation_status") == "pass", "Frozen validation failed", errors)
-    require(report.get("release_version") == "v1.1-rc1", "Unexpected release version", errors)
+    require(report.get("release_version") == "v1.1", "Unexpected release version", errors)
     require(
-        report.get("release_status") == "release_candidate",
+        report.get("release_status") == "final",
         "Unexpected release status",
         errors,
     )
@@ -244,8 +244,8 @@ def main() -> None:
         for row in core
     ]
     public_payload = {
-        "release_version": "v1.1-rc1",
-        "release_status": "release_candidate",
+        "release_version": "v1.1",
+        "release_status": "final",
         "metrics": {
             "records_identified": 340,
             "records_screened": 208,

@@ -1,7 +1,7 @@
 # ASD Microbiome Atlas
 
 Static publication-facing website for the frozen ASD Microbiome Atlas
-`v1.1-rc1` release.
+`v1.1` release.
 
 ## Source of truth
 

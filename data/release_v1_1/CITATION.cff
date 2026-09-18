@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this atlas, cite this release and the associated article when available."
+title: "ASD Microbiome Atlas"
+type: dataset
+version: "1.1.0"
+date-released: 2026-09-18
+authors:
+  - family-names: "Kurmashev"
+    given-names: "Ruslan"
+  - family-names: "Belous"
+    given-names: "Nikolai"
+license: CC-BY-4.0
+repository-code: "https://github.com/ruid128/asd-microbiome-atlas"
+url: "https://ruid128.github.io/asd-microbiome-atlas/"
+abstract: >-
+  A curated, versioned atlas of publicly discoverable human autism spectrum
+  disorder microbiome dataset records with verified accessions, publication
+  metadata, and cohort mapping.
+keywords:
+  - autism spectrum disorder
+  - microbiome
+  - biocuration
+  - public sequence repositories
+  - research data reuse

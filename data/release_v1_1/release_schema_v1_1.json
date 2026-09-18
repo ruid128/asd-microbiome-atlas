@@ -1,6 +1,6 @@
 {
-  "release_version": "v1.1-rc1",
-  "release_status": "release_candidate",
+  "release_version": "v1.1",
+  "release_status": "final",
   "snapshot_date": "2026-07-22",
   "primary_key": "dataset_id",
   "expected_rows": 70,
@@ -668,7 +668,7 @@
   },
   "controlled_vocabularies": {
     "release_status": [
-      "release_candidate"
+      "final"
     ],
     "record_status": [
       "included",

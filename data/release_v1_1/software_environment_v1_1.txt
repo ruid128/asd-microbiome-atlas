@@ -1,0 +1,12 @@
+ASD Microbiome Atlas v1.1 reproducibility environment
+Release date: 2026-09-18
+
+Operating system: Windows 10 build 26200
+Python implementation: CPython
+Python version: 3.10.11
+Matplotlib version: 3.10.6
+
+The release build, validation, descriptive analysis, and manuscript-table
+scripts use only the Python 3.10 standard library. Figure 2 generation also
+requires Matplotlib 3.10.6. No package installation is performed by the
+release scripts.
